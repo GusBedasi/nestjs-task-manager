@@ -4,6 +4,7 @@ import { TasksService } from './tasks.service';
 import { CreateTaskDTO } from './DTO/create-task-dto'
 import { UpdateTaskDTO } from './DTO/update-task-dto'
 import { GetTaskFilterDTO } from './DTO/get-task-filter-dto';
+import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
 
 @Controller('tasks')
 export class TasksController {
@@ -29,13 +30,13 @@ export class TasksController {
   }
 
   @Patch()
-  updateTask(@Body() updateTaskDTO: UpdateTaskDTO): Task {
+  updateTask(@Body(TaskStatusValidationPipe) updateTaskDTO: UpdateTaskDTO): Task {
     return this.taskService.updateTask(updateTaskDTO)
   }
 
   @Delete(':id')
-  deleteTask(@Param('id') id: string): void {
-    this.taskService.deleteTask(id)
+  deleteTask(@Param('id') id: string): Record<string, unknown> {
+    return this.taskService.deleteTask(id)
   }
 
 }

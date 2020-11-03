@@ -73,15 +73,17 @@ export class TasksService {
     return task
   }
 
-  deleteTask(id: string): void {
-    /*
-    My way 
-    const task = this.getTaskById(id)
-    const taskIndex = this.tasks.indexOf(task)
-    this.tasks.splice(taskIndex, 1) 
-    */
-    //Teacher way
-    this.tasks = this.tasks.filter(task => task.id !== id)
+  deleteTask(id: string): Record<string, unknown> {
+    const found =  this.getTaskById(id)
+
+    this.tasks = this.tasks.filter(task => task.id !== found.id)
+
+    return (
+      {
+        message: 'Task Deleted successfully',
+        task: found
+      }
+    )
   }
 
 }
