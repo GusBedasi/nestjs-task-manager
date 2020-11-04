@@ -1,7 +1,6 @@
 import { BadRequestException, PipeTransform } from "@nestjs/common";
 import { TaskStatus } from '../task.model';
 
-
 interface Ivalue {
   id: string;
   status: string;
